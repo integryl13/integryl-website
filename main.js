@@ -29,17 +29,19 @@ form?.addEventListener('submit', async (e) => {
       body: new FormData(form),
       headers: { Accept: 'application/json' }
     });
+    const data = await res.json().catch(() => ({}));
     if (res.ok) {
       form.innerHTML = '<p style="text-align:center;color:#60a5fa;font-size:1.05rem;padding:40px 0">Thank you — we\'ll be in touch within one business day.</p>';
     } else {
       btn.textContent = 'Send Message';
       btn.disabled = false;
-      alert('Something went wrong. Please try again or email us directly.');
+      const msg = data?.error || data?.errors?.map(e => e.message).join(', ') || `Error ${res.status}`;
+      alert('Form error: ' + msg);
     }
-  } catch {
+  } catch (err) {
     btn.textContent = 'Send Message';
     btn.disabled = false;
-    alert('Something went wrong. Please try again or email us directly.');
+    alert('Network error: ' + err.message);
   }
 });
 
