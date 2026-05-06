@@ -31,7 +31,7 @@ form?.addEventListener('submit', async (e) => {
     });
     const data = await res.json().catch(() => ({}));
     if (res.ok) {
-      form.innerHTML = '<p style="text-align:center;color:#60a5fa;font-size:1.05rem;padding:40px 0">Thank you — we\'ll be in touch within one business day.</p>';
+      form.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;min-height:200px;"><p style="text-align:center;color:#60a5fa;font-size:1.05rem;line-height:1.6">Thank you — we\'ll be in touch within one business day.</p></div>';
     } else {
       btn.textContent = 'Send Message';
       btn.disabled = false;
